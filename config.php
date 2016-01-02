@@ -10,5 +10,5 @@ $_DB = array();
 $_DB['server']   = '127.0.0.1';
 $_DB['port']     = '3307';
 $_DB['username'] = 'alda_user';
-$_DB['password'] = 'wb';
+$_DB['password'] = 'wer3@3s213rddggdf!kfofefokKDflpQq';
 $_DB['database'] = 'cloud_status';
