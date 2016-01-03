@@ -20,11 +20,11 @@ class alda
   {
     $query = <<<EOL
 SELECT
-	queue_id
+  queue_id
   ,hostname
   ,message
   ,is_sms_sent
-	,num_sms_recipients
+  ,num_sms_recipients
   ,is_cleared
   ,cleared_message
   ,level
