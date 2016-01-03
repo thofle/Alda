@@ -8,7 +8,7 @@
 // Database stuff
 $_DB = array();
 $_DB['server']   = '127.0.0.1';
-$_DB['port']     = '3307';
-$_DB['username'] = 'alda_user';
-$_DB['password'] = 'wer3@3s213rddggdf!kfofefokKDflpQq';
-$_DB['database'] = 'cloud_status';
+$_DB['port']     = '3306';
+$_DB['username'] = 'username';
+$_DB['password'] = 'password';
+$_DB['database'] = 'database';
