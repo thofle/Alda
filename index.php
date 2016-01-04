@@ -6,11 +6,12 @@
  */
 
 // Design start --- NO OUTPUT BEFORE HERE
-include('des_top.php');
+include('./design/header.php');
 
-if (!isset($_GET['page']))
+
+if (!isset($_GET['page']) || $_GET['page'] == 'alert-dashboard')
 {
   include('./pages/alert_dashboard.php');
 }
 
-include('des_bottom.php');
+include('./design/footer.php');

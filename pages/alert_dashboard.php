@@ -1,9 +1,9 @@
-<div id="container"></div>
+<div id="adcontainer"></div>
 <script type="text/babel">
   var AlertHandler = React.createClass({
       updateState: function(){
         var _this = this;
-        $.getJSON( "json_api.php").success(function (data) {
+        $.getJSON( "./json_api.php").success(function (data) {
 
           _this.setState({data: data, nextupdate: _this.props.updateInterval});
         });
@@ -74,6 +74,6 @@
 
   $.getJSON( "json_api.php").success(function (data) {
 
-    React.render(<AlertHandler initialData={data} updateInterval="60" />, document.getElementById('container'));
+    React.render(<AlertHandler initialData={data} updateInterval="60" />, document.getElementById('adcontainer'));
   });
 </script>
