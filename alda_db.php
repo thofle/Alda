@@ -16,6 +16,13 @@ class alda
     $this->db_handle = new PDO($dsn, $_DB['username'], $_DB['password']);
   }
 
+  function simpleQueryResult($query)
+  {
+    // for simle queries without params
+    $handle = $this->db_handle->query($query);
+    return $handle->fetchAll(PDO::FETCH_NAMED);
+  }
+
   function getAlertOverview()
   {
     $query = <<<EOL
@@ -35,9 +42,7 @@ FROM
 LIMIT 100;
 EOL;
 
-    $handle = $this->db_handle->query($query);
-    $result = $handle->fetchAll(PDO::FETCH_NAMED);
-    return $result;
+    return $this->simpleQueryResult($query);
   }
 
   function getLastLogins()
@@ -55,8 +60,22 @@ ORDER BY
 LIMIT 100;
 EOL;
 
-    $handle = $this->db_handle->query($query);
-    $result = $handle->fetchAll(PDO::FETCH_NAMED);
-    return $result;
+    return $this->simpleQueryResult($query);
   }
+
+  function getHosts()
+  {
+    $query = <<<EOL
+SELECT
+  host_id
+  ,hostname
+FROM
+  sd_hosts
+ORDER BY
+  hostname ASC;
+EOL;
+
+    return $this->simpleQueryResult($query);
+  }
+
 }
