@@ -1,3 +1,4 @@
+<?php if (!isset($alda)) die(); ?>
 <html>
   <head>
     <title>Alda v0.1</title>
@@ -59,21 +60,30 @@
         list-style-type: none;
         margin: 0;
         padding: 0;
+        padding-top: 9px;
       }
 
-      div#menu li {
-        padding:5px 10px 5px 10px;
+      div#menu li.category {
+        padding:10px 10px 3px 10px;
+        font-family: sans-serif;
+        font-size: 0.95em;
+        color: #888;
       }
 
       div#menu li a {
+        padding:1px 10px 1px 10px;
         display:block;
         font-family: sans-serif;
         font-size: 0.95em;
         text-decoration: none;
       }
 
-      div#menu li:hover {
-        background-color: #ddd;
+      div#menu li.subitem a {
+        padding:1px 10px 1px 25px;
+      }
+
+      div#menu li a:hover {
+        background-color: #eee;
       }
     </style>
   </head>
