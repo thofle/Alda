@@ -6,7 +6,7 @@
     <?php
       foreach ($alda->getHosts() as $host)
       {
-        echo '<li class="subitem"><a href="index.php?page=hosts?host_id='.$host['host_id'].'">'.$host['hostname'].'</a></li>';
+        echo '<li class="subitem"><a href="index.php?page=host&host_id='.$host['host_id'].'">'.$host['hostname'].'</a></li>';
       }
     ?>
   </ul>

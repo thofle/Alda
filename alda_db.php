@@ -8,9 +8,13 @@
 class alda
 {
   private $db_handle = null;
+  private $host_id;
 
-  function __construct()
+  function __construct($host_id = null)
   {
+    if ($host_id != null)
+      $this->host_id = $this->validateNumber($host_id, false);
+
     include('config.php');
     $dsn = 'mysql:host=' . $_DB['server'] . ';dbname=' . $_DB['database'] . ';port=' . $_DB['port'];
     $this->db_handle = new PDO($dsn, $_DB['username'], $_DB['password']);
@@ -61,6 +65,46 @@ LIMIT 100;
 EOL;
 
     return $this->simpleQueryResult($query);
+  }
+
+  function getHostLogins($num = 10, $offset = 0)
+  {
+    if ($this->host_id === false)
+      return 'invalid host_id';
+
+    $query = <<<EOL
+SELECT
+  host_id
+  ,username
+  ,remote_addr
+--  ,login_timestamp
+  ,DATE_FORMAT(login_timestamp, '%d.%m.%y %H:%i:%s') AS timestamp
+FROM
+  sd_logins
+WHERE
+  host_id = :host_id
+ORDER BY
+  login_timestamp DESC
+LIMIT :num OFFSET :offset;
+EOL;
+
+    $num = $this->validateNumber($num, 10, 1, 100);
+    $offset = $this->validateNumber($offset, 0, 0);
+
+    $handle = $this->db_handle->prepare($query);
+    $handle->bindParam(':host_id', $this->host_id, PDO::PARAM_INT);
+    $handle->bindParam(':offset',  $offset, PDO::PARAM_INT);
+    $handle->bindParam(':num', $num, PDO::PARAM_INT);
+    $handle->execute();
+    return $handle->fetchAll(PDO::FETCH_NAMED);
+  }
+
+  function validateNumber($number, $invalid_value, $min = 0, $max = 99999999999)
+  {
+    if (is_numeric($number) && $number >= $min && $number <= $max)
+      return $number;
+    else
+      return $invalid_value;
   }
 
   function getHosts()

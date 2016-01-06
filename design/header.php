@@ -33,12 +33,20 @@
         border: 3px solid rgba(0, 0, 0, .3);
       }
 
-      table#alertOverview td, table#alertOverview th {
+      table td, table th {
         font-family: sans-serif;
         font-size: 0.95em;
       }
-      table#alertOverview td {
-        padding: 2px 5px 2px 5px;
+
+      table {
+        border-spacing: 0;
+      }
+
+      table.hostLogins tr:nth-child(odd)		{ background-color:#eee; }
+      table.hostLogins tr:nth-child(even)		{ background-color:#fff; }
+
+      table td {
+        padding: 2px 10px 2px 10px;
       }
 
       div#menu, div#content {
