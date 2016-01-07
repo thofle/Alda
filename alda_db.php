@@ -77,7 +77,6 @@ SELECT
   host_id
   ,username
   ,remote_addr
---  ,login_timestamp
   ,DATE_FORMAT(login_timestamp, '%d.%m.%y %H:%i:%s') AS timestamp
 FROM
   sd_logins
@@ -97,6 +96,27 @@ EOL;
     $handle->bindParam(':num', $num, PDO::PARAM_INT);
     $handle->execute();
     return $handle->fetchAll(PDO::FETCH_NAMED);
+  }
+
+  function getHostUptime()
+  {
+    if ($this->host_id === false)
+      return 'invalid host_id';
+
+    $query = <<<EOL
+SELECT
+  uptime_h
+FROM
+  v_host_uptime
+WHERE
+  host_id = :host_id;
+EOL;
+
+    $handle = $this->db_handle->prepare($query);
+    $handle->bindParam(':host_id', $this->host_id, PDO::PARAM_INT);
+    $handle->execute();
+
+    return $handle->fetch(PDO::FETCH_NAMED)['uptime_h'];
   }
 
   function validateNumber($number, $invalid_value, $min = 0, $max = 99999999999)

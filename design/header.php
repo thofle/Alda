@@ -21,6 +21,11 @@
         opacity:.50;
       }
 
+      p {
+        margin: 0;
+        padding: 0;
+      }
+
       .alert-sms-icon, .alert-level-icon {
         width:16px;
       }
@@ -33,7 +38,7 @@
         border: 3px solid rgba(0, 0, 0, .3);
       }
 
-      table td, table th {
+      table td, table th, p {
         font-family: sans-serif;
         font-size: 0.95em;
       }

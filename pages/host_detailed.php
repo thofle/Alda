@@ -6,7 +6,5 @@
  */
 if (!isset($alda)) die();
 
-$logins = $alda->getHostLogins(10);
-
-
-des_showLoginTable($logins);
+des_hostUptime($alda->getHostUptime());
+des_showLoginTable($alda->getHostLogins(10));
