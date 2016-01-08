@@ -6,5 +6,6 @@
 - [ ] Web interface for clearing events
 - [ ] Configurable alert thresholds
 - [ ] GUI for subscriptions (SMS)
+- [ ] Login (all actions like clearing events etc. must be tied to a user)
 - [x] Automatic clearing of certain events (ping, disk space, ...)
 - [x] SMS notice (on subscribed events)
