@@ -34,6 +34,15 @@
             var level_icon_src = 'img/level-' + i.level.toLowerCase() + '.png';
             var sms_icon_src = 'img/sms-';
 
+            if (i.is_cleared == 0)
+            {
+              var message_content = '<a onclick="showMessageBox(' + i.queue_id + ')" href="javascript:void(0);">' + i.message +'</a>';
+            }
+            else
+            {
+              var message_content = i.message
+            }
+
             switch (i.is_sms_sent)
             {
               case '0': sms_icon_src = sms_icon_src + 'not-sent'; break;
@@ -48,7 +57,7 @@
               <td><img src={level_icon_src} className="alert-level-icon" /></td>
               <td><img src={sms_icon_src} className="alert-sms-icon" /></td>
               <td>{i.hostname}</td>
-          <td>{i.message}</td>
+          <td dangerouslySetInnerHTML={{__html: message_content}}></td>
       <td>{i.date_created}</td>
     <td>{i.date_cleared}</td>
   </tr>
@@ -76,4 +85,42 @@
 
     React.render(<AlertHandler initialData={data} updateInterval="60" />, document.getElementById('adcontainer'));
   });
+</script>
+
+
+<div id="overlay">
+  <div id="messageBox">
+
+
+  </div>
+</div>
+
+<script>
+  // ajax stuff
+  function clearAlert(queue_id)
+  {
+    var message = document.getElementById('input_message').value;
+    $.get("ajax.php?queue_id=" + queue_id + "&message=" + message);
+    hideMessageBox();
+  }
+
+  function showMessageBox(queue_id)
+  {
+    var div = document.getElementById('messageBox');
+
+    div.innerHTML = '<a onclick="hideMessageBox()" href="javascript:void(0);" style="position: relative; float:left;">[x]</a>';
+    div.innerHTML = div.innerHTML + 'Clear message: <input type="text" id="input_message"><br />';
+    div.innerHTML = div.innerHTML + '<input type="button" onclick="clearAlert(' + queue_id + ')" value="Clear" />';
+
+    el = document.getElementById("overlay");
+    el.style.visibility = "visible";
+    document.getElementById('input_message').focus();
+  }
+
+  function hideMessageBox()
+  {
+    el = document.getElementById("overlay");
+    el.style.visibility = "hidden";
+    location.reload();
+  }
 </script>

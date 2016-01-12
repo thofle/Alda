@@ -98,6 +98,26 @@
       div#menu li a:hover {
         background-color: #eee;
       }
+
+      #overlay {
+        visibility: hidden;
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width:100%;
+        height:100%;
+        text-align:center;
+        z-index: 1000;
+      }
+
+      #overlay div {
+        width:300px;
+        margin: auto;
+        background-color: #fff;
+        border:1px solid #000;
+        padding:15px;
+        text-align:center;
+      }
     </style>
   </head>
 <body>

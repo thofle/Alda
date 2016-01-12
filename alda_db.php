@@ -119,6 +119,27 @@ EOL;
     return $handle->fetch(PDO::FETCH_NAMED)['uptime_h'];
   }
 
+  function setAlertClearedStatus($queue_id, $message = null)
+  {
+    if ($this->validateNumber($queue_id, false) === false)
+      return 'invalid queue id';
+
+    $query = <<<EOL
+UPDATE
+  al_queue
+SET
+  cleared = 1
+  ,cleared_message = :message
+  ,date_cleared = CURRENT_TIMESTAMP
+WHERE
+  queue_id = :queue_id;
+EOL;
+    $handle = $this->db_handle->prepare($query);
+    $handle->bindParam(':queue_id', $queue_id, PDO::PARAM_INT);
+    $handle->bindParam(':message',  $message, PDO::PARAM_STR);
+    return $handle->execute();
+  }
+
   function validateNumber($number, $invalid_value, $min = 0, $max = 99999999999)
   {
     if (is_numeric($number) && $number >= $min && $number <= $max)
